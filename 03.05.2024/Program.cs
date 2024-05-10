@@ -125,64 +125,57 @@ namespace LessonTasks
 
         private static void SolveTask2(string[] args)
         {
-            var B = new int[5, 5];
+            int[,] array = new int[5, 5];
 
             Random random = new Random();
-            int min = 101, minI = 0, minJ = 0;
-            int max = -101, maxI = 0, maxJ = 0;
-            for (int i = 0; i < B.GetLength(0); i++)
-                for (int j = 0; j < B.GetLength(1); j++)
-                {
-                    B[i, j] = random.Next(-100,100);
-                    if (B[i, j] > max)
-                    {
-                        max = B[i, j];
-                        maxI = i;
-                        maxJ = j;
-                    }
-                    if (B[i, j] < min)
-                    {
-                        min = B[i, j];
-                        minI = i;
-                        minJ = j;
-                    }
-                }
-            for (int i = 0; i < B.GetLength(0); i++)
+            for (int i = 0; i < 5; i++)
             {
-                for (int j = 0; j < B.GetLength(1); j++)
+                for (int j = 0; j < 5; j++)
                 {
-                    Console.Write(B[i, j]);
-                    Console.Write(" ");
+                    array[i, j] = random.Next(-100, 100);
+                }
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    Console.Write("{0,5}", array[i, j]);
                 }
                 Console.WriteLine();
             }
 
-            int sum = 0;
-            if (minI == maxI)
-                for (int i = (maxJ < minJ) ? maxJ + 1 : minJ + 1; i < ((maxJ > minJ) ? maxJ : minJ); i++)
-                    sum += B[maxI, i];
-            else
+            int min = array[0, 0];
+            int max = array[0, 0];
+            for (int i = 0; i < 5; i++)
             {
-                if (maxI < minI)
+                for (int j = 0; j < 5; j++)
                 {
-                    for (int i=maxJ+1;i<B.GetLength(1);i++)
-                        sum += B[maxI, i];
-                    for (int i = 0; i < minJ; i++)
-                        sum += B[minI, i];
-                }
-                else
-                {
-                    for (int i = minJ + 1; i < B.GetLength(1); i++)
-                        sum += B[minI, i];
-                    for (int i = 0; i < maxJ; i++)
-                        sum += B[maxI, i];
-                    for (int i = (maxI < minI) ? maxI + 1 : minI + 1; i < ((maxI > minI) ? maxI : minI); i++)
-                        for (int j = 0; j < B.GetLength(1); j++)
-                            sum += B[i, j];
+                    if (array[i, j] < min)
+                    {
+                        min = array[i, j];
+                    }
+                    else if (array[i, j] > max)
+                    {
+                        max = array[i, j];
+                    }
                 }
             }
-            Console.WriteLine($"Sum = {sum}");
 
+            int sum = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    if (array[i, j] > min && array[i, j] < max)
+                    {
+                        sum += array[i, j];
+                    }
+                }
+            }
+
+            // Печать результата
+            Console.WriteLine("Сумма элементов между минимальным и максимальным: {0}", sum);
         }
 
         private static void Encrypt(string str, int shift)

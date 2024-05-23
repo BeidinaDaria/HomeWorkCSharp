@@ -1,0 +1,30 @@
+CREATE TABLE Groups
+(
+    Id INT PRIMARY KEY IDENTITY,
+    Name nvarchar(10) UNIQUE NOT NULL,
+    Rating INT CHECK(Rating>=0 AND Rating<=5) NOT NULL,
+    Year INT CHECK(Year>=1 AND Year<=5) NOT NULL
+);
+
+CREATE TABLE Departments
+(
+    Id INT PRIMARY KEY IDENTITY,
+    Financing money CHECK(Financing>=0) DEFAULT(0),
+	Name nvarchar(100) UNIQUE NOT NULL
+);
+
+CREATE TABLE Faculties
+(
+	Id INT PRIMARY KEY IDENTITY,
+	Name nvarchar(100) UNIQUE NOT NULL
+);
+
+CREATE TABLE Teachers
+(
+    Id INT PRIMARY KEY IDENTITY,
+    EmploymentDate date CHECK(EmploymentDate>' 01.01.1990') NOT NULL,
+	Surname nvarchar(max) NOT NULL,
+    Name nvarchar(max) NOT NULL,
+    Premium money CHECK(Premium>=0) DEFAULT(0),
+	Salary money CHECK(Salary>0),
+);
